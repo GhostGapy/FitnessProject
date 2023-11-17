@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 // welcome back, you've been missed!
                 Text(
-                  'Start the journey to getting healthier!',
+                  'Continue the journey to getting healthier!',
                   style: TextStyle(
                     color: Colors.grey[700],
                     fontSize: 16,
