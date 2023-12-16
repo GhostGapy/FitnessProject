@@ -39,75 +39,21 @@ class GamePage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 34, 27, 27),
         ),
-        body: Center(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // Background Card
-              Positioned(
-                top: 50,
-                left: 50,
-                child: Card(
-                  color: const Color.fromARGB(255, 17, 17, 17),
-                  elevation: 0.0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(3),
-                      child: Card(
-                        color: const Color.fromARGB(255, 255, 0, 0),
-                        elevation: 0.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Container(
-                          padding: const EdgeInsets.all(2),
-                          child: Center(
-                            child: Card(
-                              color: const Color.fromARGB(255, 17, 17, 17),
-                              elevation: 0.0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Container(
-                                width: 300,
-                                height: 540,
-                                padding: const EdgeInsets.all(16.0),
-                                child: const Center(
-                                  child: Text(
-                                    'Overlapping Card',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.white,
-                                      fontFamily: 'Nunito',
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              // Overlapping Card
-              Positioned(
-                top: 45,
-                left: 40,
-                child: Card(
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Card(
                   color: const Color.fromARGB(255, 17, 17, 17),
                   elevation: 0.0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0),
                   ),
                   child: Container(
-                    width: 326,
-                    height: 562,
+                    width: 300,
+                    height: 540,
                     padding: const EdgeInsets.all(3.0),
                     child: Center(
                       child: Card(
@@ -131,7 +77,7 @@ class GamePage extends StatelessWidget {
                                 padding: const EdgeInsets.all(16.0),
                                 child: const Center(
                                   child: Text(
-                                    'Overlapping Card',
+                                    'Drink Dare Card',
                                     style: TextStyle(
                                       fontSize: 16.0,
                                       color: Colors.white,
@@ -147,13 +93,15 @@ class GamePage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  // Add your additional widget under the Stack
                 ),
-              ),
-              // First Square Button
-              Positioned(
-                bottom: 27,
-                left: 100,
-                child: ElevatedButton(
+              ],
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
                   onPressed: () {
                     // Handle button press
                   },
@@ -172,12 +120,8 @@ class GamePage extends StatelessWidget {
                     ],
                   ),
                 ),
-              ),
-              // Second Square Button
-              Positioned(
-                bottom: 27,
-                right: 90,
-                child: ElevatedButton(
+                SizedBox(width: 20),
+                ElevatedButton(
                   onPressed: () {
                     // Handle button press
                   },
@@ -192,13 +136,13 @@ class GamePage extends StatelessWidget {
                     children: [
                       Icon(Icons.swipe_left),
                       SizedBox(height: 10),
-                      Text('   Next   '),
+                      Text('    Next    '),
                     ],
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ),
       ),
     );
