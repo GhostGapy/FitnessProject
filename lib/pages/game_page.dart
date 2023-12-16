@@ -1,7 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class GamePage extends StatelessWidget {
+class GamePage extends StatefulWidget {
   const GamePage({Key? key});
+
+  @override
+  _GamePageState createState() => _GamePageState();
+}
+
+class _GamePageState extends State<GamePage> {
+  late String currentCardValue;
+  late String currentDocumentId; // Added to store the current document ID
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize the card value and document ID
+    currentCardValue = 'Loading...';
+    currentDocumentId =
+        ''; // Set to an initial value, or choose a default document ID
+    fetchCardValue();
+  }
+
+  Future<void> fetchCardValue() async {
+    try {
+      // Replace "YourCollection" with your actual Firestore collection name
+      var querySnapshot =
+          await FirebaseFirestore.instance.collection('Cards').get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // Choose a document from the query result (e.g., the first document)
+        var documentSnapshot = querySnapshot.docs.first;
+        setState(() {
+          currentCardValue = documentSnapshot['value'];
+          currentDocumentId = documentSnapshot.id;
+        });
+      } else {
+        setState(() {
+          currentCardValue = 'No documents found';
+          currentDocumentId = '';
+        });
+      }
+    } catch (e) {
+      print('Error fetching data: $e');
+      setState(() {
+        currentCardValue = 'Error fetching data';
+        currentDocumentId = '';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,18 +121,35 @@ class GamePage extends StatelessWidget {
                               child: Container(
                                 width: 300,
                                 height: 540,
-                                padding: const EdgeInsets.all(16.0),
-                                child: const Center(
-                                  child: Text(
-                                    'Drink Dare Card',
-                                    style: TextStyle(
-                                      fontSize: 16.0,
-                                      color: Colors.white,
-                                      fontFamily: 'Nunito',
-                                      fontWeight: FontWeight.bold,
+                                padding: const EdgeInsets.all(20.0),
+                                alignment: Alignment.center,
+                                child: Center(
+                                    child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    SizedBox(
+                                      height: 170,
+                                      child: Image.asset(
+                                        'lib/images/DD_logo3_red 1.png',
+                                      ),
                                     ),
-                                  ),
-                                ),
+                                    const SizedBox(
+                                      height: 50,
+                                    ),
+                                    Container(
+                                      height: 250,
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        currentCardValue,
+                                        style: const TextStyle(
+                                          fontSize: 22,
+                                          color: Colors.white,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  ],
+                                )),
                               ),
                             ),
                           ),
@@ -93,7 +157,6 @@ class GamePage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // Add your additional widget under the Stack
                 ),
               ],
             ),
@@ -104,6 +167,7 @@ class GamePage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Handle button press
+                    fetchCardValue();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 73, 73, 73),
@@ -124,6 +188,7 @@ class GamePage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Handle button press
+                    fetchCardValue();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 73, 73, 73),
@@ -136,7 +201,7 @@ class GamePage extends StatelessWidget {
                     children: [
                       Icon(Icons.swipe_left),
                       SizedBox(height: 10),
-                      Text('    Next    '),
+                      Text('    Next   '),
                     ],
                   ),
                 ),
